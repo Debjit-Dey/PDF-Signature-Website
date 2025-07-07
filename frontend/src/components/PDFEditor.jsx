@@ -222,7 +222,7 @@ const PDFEditor = ({
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 ">
       <div className="sticky top-0 z-30 bg-white shadow flex flex-wrap gap-3 p-3 rounded-md border mb-4 justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -279,7 +279,9 @@ const PDFEditor = ({
       <div
         ref={containerRef}
         onClick={handlePlaceSignature}
-        className="relative border bg-white shadow rounded-md p-2 flex justify-center min-h-[80vh]"
+        className={`relative border bg-white shadow rounded-md p-2 min-h-[80vh] ${
+          isPublic ? "w-[80vw]" : "flex justify-center"
+        }`}
       >
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
           <Viewer

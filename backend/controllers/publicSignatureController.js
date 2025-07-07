@@ -9,7 +9,8 @@ export const sendPublicSignatureLink = async (req, res) => {
     const { documentId, email } = req.body;
 
     const document = await Document.findById(documentId);
-    if (!document) return res.status(404).json({ message: "Document not found" });
+    if (!document)
+      return res.status(404).json({ message: "Document not found" });
 
     const token = crypto.randomBytes(20).toString("hex");
 
@@ -19,7 +20,7 @@ export const sendPublicSignatureLink = async (req, res) => {
       token,
     });
 
-    const publicLink = `${process.env.CLIENT_URL}/sign/${token}`;
+    const publicLink = `${process.env.CLIENT_URL}sign/${token}`;
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -43,10 +44,14 @@ export const sendPublicSignatureLink = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ message: "Signature request sent successfully", token });
+    res
+      .status(200)
+      .json({ message: "Signature request sent successfully", token });
   } catch (err) {
     console.error("❌ Email send failed:", err);
-    res.status(500).json({ message: "Failed to send email", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Failed to send email", error: err.message });
   }
 };
 export const getDocumentByToken = async (req, res) => {
@@ -92,6 +97,8 @@ export const confirmPublicSignature = async (req, res) => {
     res.status(200).json({ message: "Audit log saved" });
   } catch (err) {
     console.error("🛑 Signature confirm failed:", err);
-    res.status(500).json({ message: "Failed to confirm signature", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Failed to confirm signature", error: err.message });
   }
 };

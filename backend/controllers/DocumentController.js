@@ -17,8 +17,6 @@ export const uploadDocument = async (req, res) => {
       .relative(process.cwd(), file.path)
       .replace(/\\/g, "/");
 
-    console.log("📥 Saved relative path:", relativePath);
-
     const newDoc = await Document.create({
       filename: file.originalname,
       filepath: relativePath,
