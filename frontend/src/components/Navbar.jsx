@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../utils/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { GrDocumentPerformance } from "react-icons/gr";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Navbar = () => {
         className="text-xl font-bold text-indigo-700 cursor-pointer flex items-center gap-2"
         onClick={() => navigate("/dashboard")}
       >
-        📄 Signature App
+        <GrDocumentPerformance className="text-5xl text-blue-600 mb-4" /> E-Sign
       </h1>
 
       <div className="flex items-center gap-6">

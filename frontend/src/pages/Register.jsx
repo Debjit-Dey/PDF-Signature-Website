@@ -52,34 +52,36 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-sky-100 to-indigo-100 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Glowing blobs */}
+      <div className="absolute w-[400px] h-[400px] bg-blue-400 opacity-20 blur-3xl rounded-full -top-32 -left-32 animate-pulse" />
+      <div className="absolute w-[400px] h-[400px] bg-emerald-400 opacity-20 blur-3xl rounded-full -bottom-32 -right-32 animate-pulse" />
+
       <motion.div
-        className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8 border border-blue-200"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        className="relative z-10 w-full max-w-md bg-white/60 backdrop-blur-md border border-white/30 shadow-2xl rounded-2xl px-8 py-10 space-y-6"
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-slate-800">
-            Document Signature
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-emerald-600">
+            Create an Account
           </h1>
-          <p className="text-sm text-gray-500 mt-1">Sign. Secure. Share.</p>
+          <p className="text-sm text-gray-600 mt-1">
+            Sign smarter. Stay safer. Share instantly.
+          </p>
         </div>
-
-        <h2 className="text-xl font-semibold text-blue-700 mb-4 text-center">
-          Create Your Account
-        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="text-sm text-gray-700 block mb-1">
+            <label htmlFor="name" className="text-sm text-gray-700">
               Full Name
             </label>
             <input
               type="text"
               id="name"
               placeholder="John Doe"
-              className="w-full px-4 py-2 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-400"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               required
@@ -87,14 +89,14 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="text-sm text-gray-700 block mb-1">
+            <label htmlFor="email" className="text-sm text-gray-700">
               Email Address
             </label>
             <input
               type="email"
               id="email"
               placeholder="example@email.com"
-              className="w-full px-4 py-2 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               required
@@ -102,17 +104,14 @@ const Register = () => {
           </div>
 
           <div className="relative">
-            <label
-              htmlFor="password"
-              className="text-sm text-gray-700 block mb-1"
-            >
+            <label htmlFor="password" className="text-sm text-gray-700">
               Password
             </label>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="Enter a password"
-              className="w-full px-4 py-2 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 pr-10 rounded-md bg-white border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
@@ -126,17 +125,14 @@ const Register = () => {
           </div>
 
           <div className="relative">
-            <label
-              htmlFor="confirmPassword"
-              className="text-sm text-gray-700 block mb-1"
-            >
+            <label htmlFor="confirmPassword" className="text-sm text-gray-700">
               Confirm Password
             </label>
             <input
               type={showConfirm ? "text" : "password"}
               id="confirmPassword"
               placeholder="Confirm your password"
-              className="w-full px-4 py-2 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 px-4 py-2 pr-10 rounded-md bg-white border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={form.confirmPassword}
               onChange={(e) =>
                 setForm({ ...form, confirmPassword: e.target.value })
@@ -153,19 +149,19 @@ const Register = () => {
 
           <motion.button
             type="submit"
+            disabled={loading}
             className={`w-full ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
-            } text-white font-medium py-2 rounded-md transition-all duration-200 shadow`}
+                : "bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600"
+            } text-white font-semibold py-2 rounded-md shadow transition duration-200`}
             whileTap={{ scale: 0.96 }}
-            disabled={loading}
           >
             {loading ? "Sending OTP..." : "Send OTP"}
           </motion.button>
         </form>
 
-        <p className="text-sm text-center text-gray-600 mt-4">
+        <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}
           <Link
             to="/login"
